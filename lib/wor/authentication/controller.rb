@@ -12,19 +12,19 @@ module Wor
       end
 
       ##
-      # Helpers intended to override in controller class
-      #
+      # Helpers intended to override in applications ApplicationController class
+      ##
+
+      def token_renew_id
+        Devise.friendly_token(32)
+      end
 
       def new_token_expiration_date
-        # default instead of exception ?
-        # something like: (Time.zone.now + 2.days).to_i
-        raise Wor::Authentication::Exceptions::SubclassMustImplementError
+        (Time.zone.now + 2.days).to_i
       end
 
       def token_maximum_useful_date
-        # default instead of exception ?
-        # something like: (Time.zone.now + 30.days).to_i
-        raise Wor::Authentication::Exceptions::SubclassMustImplementError
+        (Time.zone.now + 30.days).to_i
       end
 
       def entity_payload(entity)
@@ -32,18 +32,6 @@ module Wor
         # something like: { id: entity.try(:id) }
         # check find_authenticable_entity method and use id instead of user_id if this default value is set
         raise Wor::Authentication::Exceptions::SubclassMustImplementError
-      end
-
-      def token_renew_id
-        # default instead of exception ?
-        # if has Devise =====> Devise.friendly_token(32)
-        raise Wor::Authentication::Exceptions::SubclassMustImplementError
-      end
-
-      def token_key
-        raise Wor::Authentication::Exceptions::SubclassMustImplementError unless defined?(Rails)
-        raise Wor::Authentication::Exceptions::NoKeyProvidedError if Rails.application.secrets.secret_key_base.nil?
-        Rails.application.secrets.secret_key_base
       end
 
       def authentication_token
@@ -56,6 +44,12 @@ module Wor
 
       def generate_authenticable_entity_validation(entity)
         true
+      end
+
+      def token_key
+        raise Wor::Authentication::Exceptions::SubclassMustImplementError unless defined?(Rails)
+        raise Wor::Authentication::Exceptions::NoKeyProvidedError if Rails.application.secrets.secret_key_base.nil?
+        Rails.application.secrets.secret_key_base
       end
 
       def authenticate_entity(authenticate_params)
