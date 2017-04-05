@@ -60,10 +60,6 @@ module Wor
         raise Wor::Authentication::Exceptions::SubclassMustImplementError
       end
 
-      def payload(entity)
-        raise Wor::Authentication::Exceptions::SubclassMustImplementError
-      end
-
     end
   end
 end
