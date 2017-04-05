@@ -1,0 +1,12 @@
+AllCops:
+  Exclude:
+    - wor-requests.gemspec
+
+Documentation:
+  Enabled: false
+
+LineLength:
+  Max: 99
+
+FrozenStringLiteralComment:
+  Enabled: false
