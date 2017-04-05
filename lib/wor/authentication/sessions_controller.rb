@@ -20,7 +20,7 @@ module Wor
         if !decoded_token.valid_renew_id?(renew_token_params[:renew_id])
           render_error('Invalid renew_id', :unauthorized)
         else
-          render json: { access_token: renew_access_token }, status: :ok
+          render json: { access_token: renew_access_token(current_entity) }, status: :ok
         end
       end
       # rubocop:enable Metrics/AbcSize
@@ -28,14 +28,14 @@ module Wor
       def invalidate_all
         # should we rescue anything here ?
         # if invalidating uses db and fails, or something like that
-        generate_authenticable_entity_validation(current_entity)
+        entity_custom_validation_invalidate_all_value(current_entity)
         head :ok
       end
 
       def generate_access_token(entity)
         renew_id = token_renew_id
         payload = entity_payload(entity).merge(
-          entity_custom_validation: authenticable_entity_validation(entity),
+          entity_custom_validation: entity_custom_validation_value(entity),
           expiration_date: new_token_expiration_date,
           maximum_useful_date: token_maximum_useful_date,
           renew_id: renew_id
@@ -43,9 +43,10 @@ module Wor
         { token: Wor::Authentication::TokenManager.new(token_key).encode(payload), renew_id: renew_id }
       end
 
-      def renew_access_token
+      def renew_access_token(entity)
         payload = decoded_token.payload
         payload[:expiration_date] = new_token_expiration_date
+        payload[:entity_custom_validation] = entity_custom_validation_renew_value(entity)
         Wor::Authentication::TokenManager.new(token_key).encode(payload)
       end
 

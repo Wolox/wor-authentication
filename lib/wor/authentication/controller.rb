@@ -4,7 +4,7 @@ module Wor
 
       def authenticate_request
         entity = find_authenticable_entity(decoded_token)
-        decoded_token.validate!(authenticable_entity_validation(entity))
+        decoded_token.validate!(entity_custom_validation_value(entity))
       end
 
       def decoded_token
@@ -38,12 +38,16 @@ module Wor
         request.headers['Authorization'].split(' ').last
       end
 
-      def authenticable_entity_validation
+      def entity_custom_validation_value(entity)
         nil
       end
 
-      def generate_authenticable_entity_validation(entity)
-        true
+      def entity_custom_validation_renew_value(entity)
+        entity_custom_validation_value(entity)
+      end
+
+      def entity_custom_validation_invalidate_all_value(entity)
+        nil
       end
 
       def token_key
