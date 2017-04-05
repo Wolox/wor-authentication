@@ -5,7 +5,7 @@ module Wor
       class NoKeyProvidedError < StandardError ; end
       class ExpiredTokenError < StandardError ; end
       class NotRenewableTokenError < StandardError ; end
-      class InvalidVerificationError < StandardError ; end
+      class EntityCustomValidationError < StandardError ; end
     end
   end
 end

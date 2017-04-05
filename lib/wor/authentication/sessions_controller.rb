@@ -35,7 +35,7 @@ module Wor
       def generate_access_token(entity)
         renew_id = token_renew_id
         payload = entity_payload(entity).merge(
-          verification_code: authenticable_entity_validation(entity),
+          entity_custom_validation: authenticable_entity_validation(entity),
           expiration_date: new_token_expiration_date,
           maximum_useful_date: token_maximum_useful_date,
           renew_id: renew_id
@@ -76,8 +76,8 @@ module Wor
         render_error('Expired token', :unauthorized)
       end
 
-      def render_invalid_verification
-        render_error('Invalid verification', :unauthorized)
+      def render_entity_invalid_custom_validation
+        render_error('Entity invalid custom validation', :unauthorized)
       end
     end
   end

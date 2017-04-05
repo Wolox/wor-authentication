@@ -7,9 +7,9 @@ module Wor
         @payload = payload
       end
 
-      def validate!(verification_code = nil)
+      def validate!(entity_custom_validation = nil)
         # this shouldn't be sorted in a different way
-        raise Wor::Authentication::Exceptions::InvalidVerificationError unless valid_verification_code?(verification_code)
+        raise Wor::Authentication::Exceptions::EntityCustomValidationError unless valid_entity_custom_validation?(entity_custom_validation)
         raise Wor::Authentication::Exceptions::NotRenewableTokenError unless able_to_renew?
         raise Wor::Authentication::Exceptions::ExpiredTokenError if expired?
       end
@@ -39,9 +39,9 @@ module Wor
 
       private
 
-      def valid_verification_code?(verification_code)
-        return true unless fetch(:verification_code).present?
-        verification_code == fetch(:verification_code)
+      def valid_entity_custom_validation?(entity_custom_validation)
+        return true unless fetch(:entity_custom_validation).present?
+        entity_custom_validation == fetch(:entity_custom_validation)
       end
     end
   end
