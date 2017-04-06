@@ -14,8 +14,6 @@ module Wor
         end
       end
 
-      # TODO: Refactor and remove rubocop exception
-      # rubocop:disable Metrics/AbcSize
       def renew
         if !decoded_token.valid_renew_id?(renew_token_params[:renew_id])
           render_error('Invalid renew_id', :unauthorized)
@@ -23,7 +21,6 @@ module Wor
           render json: { access_token: renew_access_token(current_entity) }, status: :ok
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       def invalidate_all
         # should we rescue anything here ?

@@ -8,7 +8,6 @@ module Wor
       end
 
       def validate!(entity_custom_validation = nil)
-        # this shouldn't be sorted in a different way
         raise Wor::Authentication::Exceptions::EntityCustomValidationError unless valid_entity_custom_validation?(entity_custom_validation)
         raise Wor::Authentication::Exceptions::NotRenewableTokenError unless able_to_renew?
         raise Wor::Authentication::Exceptions::ExpiredTokenError if expired?
