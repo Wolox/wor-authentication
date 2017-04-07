@@ -14,8 +14,8 @@ module Wor
       end
 
       def fetch(key)
-        return payload[key.to_sym] unless payload[key.to_sym].nil?
-        return payload[key.to_s] unless payload[key.to_s].nil?
+        return payload[key.to_sym] if payload[key.to_sym]
+        return payload[key.to_s] if payload[key.to_s]
         nil
       end
 

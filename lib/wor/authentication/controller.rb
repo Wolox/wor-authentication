@@ -58,7 +58,7 @@ module Wor
       # Explain in README
       def token_key
         raise Wor::Authentication::Exceptions::SubclassMustImplementError unless defined?(Rails)
-        raise Wor::Authentication::Exceptions::NoKeyProvidedError if Rails.application.secrets.secret_key_base.nil?
+        raise Wor::Authentication::Exceptions::NoKeyProvidedError unless Rails.application.secrets.secret_key_base.present?
         Rails.application.secrets.secret_key_base
       end
 
