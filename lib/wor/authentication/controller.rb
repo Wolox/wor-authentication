@@ -17,7 +17,8 @@ module Wor
 
       # Explain in README
       def token_renew_id
-        Devise.friendly_token(32)
+        ## someone reject this line pls: ::Devise
+        ::Devise.friendly_token(32)
       end
 
       # Explain in README

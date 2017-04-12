@@ -24,10 +24,13 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'railties', '>= 4.1.0', '< 5.1'
   spec.add_dependency 'devise', '>= 4.2.0'
   spec.add_dependency 'jwt', '>= 1.5'
+  spec.add_dependency 'rails', '>= 4.0'
 
   spec.add_development_dependency 'byebug', '~> 9.0'
   spec.add_development_dependency 'rubocop', '~> 0.47'
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rspec-rails', '~> 3.5'
+  spec.add_development_dependency 'sqlite3'
 end

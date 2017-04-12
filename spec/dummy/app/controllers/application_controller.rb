@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   rescue_from Wor::Authentication::Exceptions::EntityCustomValidationError, with: :render_entity_invalid_custom_validation
 
   def authenticate_entity(params) {} end
+
   def find_authenticable_entity(decoded_token) {} end
+
   def entity_payload(entity) {} end
 end

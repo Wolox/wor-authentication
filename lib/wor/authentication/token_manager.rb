@@ -6,11 +6,13 @@ module Wor
       end
 
       def encode(payload)
-        JWT.encode(payload, @key)
+        ## someone reject this line pls: ::JWT
+        ::JWT.encode(payload, @key)
       end
 
       def decode(token)
-        payload = JWT.decode(token, @key)[0]
+        ## someone reject this line pls: ::JWT
+        payload = ::JWT.decode(token, @key)[0]
         Wor::Authentication::DecodedToken.new(payload)
       rescue
         nil
