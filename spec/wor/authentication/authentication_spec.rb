@@ -134,8 +134,9 @@ describe AuthenticationController, type: :controller do
       end
 
       context 'when the authentication token has already expired and can\'t be renewed' do
+        let(:default_expiration_time) { 2.days }
         before do
-          Timecop.travel(Time.zone.now + 3.days)
+          Timecop.travel(Time.zone.now + (default_expiration_time + 1.day))
           post :renew, params: { session: renew_params }
         end
 
@@ -153,8 +154,9 @@ describe AuthenticationController, type: :controller do
       end
 
       context 'when the authentication token has been kept for longer than maximum time and can\'t be renewed' do
+        let(:default_maximum_time) { 30.days }
         before do
-          Timecop.travel(Time.zone.now + 31.days)
+          Timecop.travel(Time.zone.now + (default_maximum_time + 1.day))
           post :renew, params: { session: renew_params }
         end
 
@@ -195,8 +197,9 @@ describe AuthenticationController, type: :controller do
     end
 
     context 'when the authentication token has expired' do
+      let(:default_expiration_time) { 2.days }
       before do
-        Timecop.travel(Time.zone.now + 3.days)
+        Timecop.travel(Time.zone.now + (default_expiration_time + 1.day))
         post :invalidate_all
       end
 
