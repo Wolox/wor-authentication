@@ -30,11 +30,6 @@ describe AuthenticationController, type: :controller do
       end
 
       it 'returns the access_token' do
-        ##
-        #  SOMEONE ANSWER THIS QUESTION PLEASE
-        #        WHY response.body
-        #      AND NOT response_body
-        ##
         expect(response.body['access_token']).to be_present
       end
 
@@ -153,10 +148,6 @@ describe AuthenticationController, type: :controller do
         end
 
         it 'returns error message Expired token' do
-          ##
-          # WHY JSON.parse(response.body)['error']
-          # INSTEAD OF response.body('error')
-          ##
           expect(JSON.parse(response.body)['error']).to match('Expired token')
         end
       end
