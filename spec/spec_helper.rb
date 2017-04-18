@@ -9,6 +9,8 @@ ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../spec/dummy/db
 
 require 'wor/authentication'
 require 'rspec/rails'
+require 'timecop'
+require 'byebug'
 
 RSpec.shared_context 'With default expiration dates session' do
   let!(:access_data) { DefaultExpirationDatesAuthenticationController.new.generate_access_token({}) }

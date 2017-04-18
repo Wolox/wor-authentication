@@ -32,5 +32,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec-rails', '~> 3.5'
+  spec.add_development_dependency 'codeclimate-test-reporter', '~> 1.0.0'
+  spec.add_development_dependency 'generator_spec'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'timecop'
   spec.add_development_dependency 'sqlite3'
 end

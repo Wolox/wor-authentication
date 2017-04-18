@@ -1,3 +1,5 @@
+require 'devise'
+
 module Wor
   module Authentication
     module Controller
@@ -16,8 +18,7 @@ module Wor
       ##
 
       def token_renew_id
-        ## someone reject this line pls: ::Devise
-        ::Devise.friendly_token(32)
+        Devise.friendly_token(32)
       end
 
       def new_token_expiration_date
