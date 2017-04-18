@@ -4,7 +4,7 @@
 [![Test Coverage](https://codeclimate.com/github/Wolox/wor-authentication/badges/coverage.svg)](https://codeclimate.com/github/Wolox/wor-authentication/coverage)
 [![Issue Count](https://codeclimate.com/github/Wolox/wor-authentication/badges/issue_count.svg)](https://codeclimate.com/github/Wolox/wor-authentication)
 
-Easily authenticate people in your application with tokens that can be renewed before they expire and which must re-created after a maximum amount of days. Also, add your custom validations when creating, renewing and invalidating tokens!
+Easily authenticate entities in your application with tokens that can be renewed before they expire and which must be re-created after a maximum customizable amount of days. Also, add your own validations when creating, renewing and invalidating tokens!
 
 ## Installation
 
@@ -26,7 +26,7 @@ Or install it yourself as:
 
 ### Basic configuration
 
-As we have already said, this gem lets you authenticate people in your application. To get that done, we must define some controller from which all other controllers will have to extend to have only-authenticated routes. So, let's do that in our `ApplicationController.rb`:
+As we have already said, this gem lets you authenticate entities in your application. To get that done, we must define some controller from which all other controllers will have to extend to have only-authenticated routes. So, let's do that in our `ApplicationController.rb`:
 ```ruby
 class ApplicationController < ActionController::Base
   include Wor::Authentication::Controller
