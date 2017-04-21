@@ -1,8 +1,9 @@
 # Wolox on Rails - Authentication
+[![Gem Version](https://badge.fury.io/rb/wor-authentication.svg)](https://badge.fury.io/rb/wor-authentication)
+[![Dependency Status](https://gemnasium.com/badges/github.com/Wolox/wor-authentication.svg)](https://gemnasium.com/github.com/Wolox/wor-authentication)
 [![Build Status](https://travis-ci.org/Wolox/wor-authentication.svg)](https://travis-ci.org/Wolox/wor-authentication)
 [![Code Climate](https://codeclimate.com/github/Wolox/wor-authentication/badges/gpa.svg)](https://codeclimate.com/github/Wolox/wor-authentication)
 [![Test Coverage](https://codeclimate.com/github/Wolox/wor-authentication/badges/coverage.svg)](https://codeclimate.com/github/Wolox/wor-authentication/coverage)
-[![Issue Count](https://codeclimate.com/github/Wolox/wor-authentication/badges/issue_count.svg)](https://codeclimate.com/github/Wolox/wor-authentication)
 
 Gem to add authentication to your application using JWT, with expirable, renewable and customizable tokens!
 
