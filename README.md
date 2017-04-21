@@ -4,7 +4,7 @@
 [![Test Coverage](https://codeclimate.com/github/Wolox/wor-authentication/badges/coverage.svg)](https://codeclimate.com/github/Wolox/wor-authentication/coverage)
 [![Issue Count](https://codeclimate.com/github/Wolox/wor-authentication/badges/issue_count.svg)](https://codeclimate.com/github/Wolox/wor-authentication)
 
-Easily authenticate entities in your application with tokens that can be renewed before they expire and which must be re-created after a maximum customizable amount of days. Also, add your own validations when creating, renewing and invalidating tokens!
+Gem to add authentication to your application using JWT, with expirable, renewable and customizable tokens!
 
 ## Installation
 
@@ -26,16 +26,16 @@ Or install it yourself as:
 
 ### Basic configuration
 
-As we have already said, this gem lets you authenticate entities in your application. To get that done, we must define some controller from which all other controllers will have to extend to have only-authenticated routes. So, let's do that in our `ApplicationController.rb`:
+The first step is to define a parent controller from which all other controllers will have to extend to have only-authenticated routes. So, let's do that in our `ApplicationController.rb`:
 ```ruby
 class ApplicationController < ActionController::Base
   include Wor::Authentication::Controller
   before_action :authenticate_request
 end
 ```
-> To know which exceptions can be thrown by the gem, please check SOME_EXCEPTION_FILE.
+> To know which exceptions can be thrown by the gem, please check the [exceptions file](./lib/wor/authentication/exceptions.rb).
 
-Now that we have done this, we have to define the routes to achieve authentication and a controller to handle them.
+Second and last step, we have to define the routes to achieve authentication and a controller to handle them.
 ```ruby
 # routes.rb
 Rails.application.routes.draw do
@@ -53,9 +53,7 @@ end
 ```
 > Note that our controller extends from ApplicationController.
 
-Finally, we have to add a `secret_key_base` key to our  `secrets.yml` file.
-
-### User tracking and custom validations
+### <a name='custom-validations'> User tracking and custom validations
 
 #### Validations before giving out a token? Override `authenticate_entity`:
 
@@ -135,14 +133,14 @@ end
 
 ## About ##
 
-This project is maintained by [Alejandro Bezdjian](https://github.com/alebian) and it was written by [Wolox](http://www.wolox.com.ar).
+This project is maintained by [Alejandro Bezdjian](https://github.com/alebian) along with [Michel Agopian](https://github.com/mishuagopian) and it was written by [Wolox](http://www.wolox.com.ar).
 ![Wolox](https://raw.githubusercontent.com/Wolox/press-kit/master/logos/logo_banner.png)
 
 ## License
 
 **wor-authentication** is available under the MIT [license](https://raw.githubusercontent.com/Wolox/wor-authentication/master/LICENSE.md).
 
-    Copyright (c) 2016 Alejandro Bezdjian, aka alebian
+    Copyright (c) 2017 Alejandro Bezdjian (aka alebian), Michel Agopian (aka mishuagopian)
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
