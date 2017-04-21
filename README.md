@@ -101,6 +101,7 @@ def entity_custom_validation_invalidate_all_value(user)
    user.save
 end
 ```
+This method is the one executed when we want to invalidate sessions for the authenticated user. An option to achieve that can be to override the value that will be then compared in every request with `entity_custom_validation_value` method, so that initial stored value mismatch with the new different value.
 > This works only if `entity_custom_validation_value` has been overridden.
 
 
