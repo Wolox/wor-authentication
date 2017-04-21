@@ -1,3 +1,5 @@
+require 'jwt'
+
 module Wor
   module Authentication
     class TokenManager

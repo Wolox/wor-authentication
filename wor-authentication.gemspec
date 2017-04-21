@@ -12,8 +12,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['alebian', 'mishuagopian']
   spec.email         = ['alejandro.bezdjian@wolox.com.ar', 'michel.agopian@wolox.com.ar']
 
-  spec.summary       = 'This gem lets you authenticate users in your API.'
-  spec.description   = 'This gem lets you authenticate users in your API.'
+  spec.summary       = 'Gem to add authentication to your application.'
+  spec.description   = 'Gem to add authentication to your application using JWT, with expirable, renewable and customizable tokens.'
   spec.homepage      = 'https://github.com/Wolox/wor-authentication'
   spec.license       = 'MIT'
 
@@ -24,10 +24,17 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'railties', '>= 4.1.0', '< 5.1'
   spec.add_dependency 'devise', '>= 4.2.0'
   spec.add_dependency 'jwt', '>= 1.5'
+  spec.add_dependency 'rails', '>= 4.0'
 
   spec.add_development_dependency 'byebug', '~> 9.0'
   spec.add_development_dependency 'rubocop', '~> 0.47'
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rspec-rails', '~> 3.5'
+  spec.add_development_dependency 'codeclimate-test-reporter', '~> 1.0.0'
+  spec.add_development_dependency 'generator_spec'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'timecop'
+  spec.add_development_dependency 'sqlite3'
 end
