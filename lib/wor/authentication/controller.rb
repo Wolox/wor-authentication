@@ -3,14 +3,15 @@ require 'devise'
 module Wor
   module Authentication
     module Controller
-
       def authenticate_request
         entity = find_authenticable_entity(decoded_token)
         decoded_token.validate!(entity_custom_validation_value(entity))
       end
 
       def decoded_token
-        @decoded_token ||= Wor::Authentication::TokenManager.new(token_key).decode(authentication_token)
+        @decoded_token ||= Wor::Authentication::TokenManager.new(
+          token_key
+        ).decode(authentication_token)
       end
 
       ##
@@ -33,7 +34,7 @@ module Wor
         request.headers['Authorization'].split(' ').last
       end
 
-      def entity_custom_validation_value(entity)
+      def entity_custom_validation_value(_entity)
         nil
       end
 
@@ -41,20 +42,30 @@ module Wor
         entity_custom_validation_value(entity)
       end
 
-      def entity_custom_validation_invalidate_all_value(entity)
+      def entity_custom_validation_invalidate_all_value(_entity)
         nil
       end
 
       # Explain in README
       def token_key
         raise Wor::Authentication::Exceptions::SubclassMustImplementError unless defined?(Rails)
-        raise Wor::Authentication::Exceptions::NoKeyProvidedError unless Rails.application.secrets.secret_key_base.present?
+        if Rails.application.secrets.secret_key_base.blank?
+          raise Wor::Authentication::Exceptions::NoKeyProvidedError
+        end
         Rails.application.secrets.secret_key_base
       end
 
-      def authenticate_entity(params) {} end
-      def find_authenticable_entity(decoded_token) {} end
-      def entity_payload(entity) {} end
+      def authenticate_entity(_params)
+        {}
+      end
+
+      def find_authenticable_entity(_decoded_token)
+        {}
+      end
+
+      def entity_payload(_entity)
+        {}
+      end
     end
   end
 end

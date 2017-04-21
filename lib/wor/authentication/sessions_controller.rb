@@ -1,7 +1,6 @@
 module Wor
   module Authentication
     module SessionsController
-
       def create
         entity = authenticate_entity(authenticate_params)
         if entity
@@ -37,7 +36,7 @@ module Wor
           maximum_useful_date: token_maximum_useful_date,
           renew_id: renew_id
         )
-        { token: Wor::Authentication::TokenManager.new(token_key).encode(payload), renew_id: renew_id }
+        access_token_object(token_key, payload, renew_id)
       end
 
       def renew_access_token(entity)
@@ -49,8 +48,15 @@ module Wor
 
       private
 
+      def access_token_object(token_key, payload, renew_id)
+        {
+          token: Wor::Authentication::TokenManager.new(token_key).encode(payload),
+          renew_id: renew_id
+        }
+      end
+
       def current_entity
-        current_entity ||= find_authenticable_entity(decoded_token)
+        @current_entity ||= find_authenticable_entity(decoded_token)
       end
 
       def render_error(error_message, status)
@@ -61,6 +67,7 @@ module Wor
       def authenticate_params
         params.require(:session).permit(:email, :password)
       end
+
       # I'm pretty sure this should be set by gems users and not us
       def renew_token_params
         params.require(:session).permit(:renew_id)
