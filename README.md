@@ -89,6 +89,7 @@ def entity_custom_validation_value(user)
    user.some_value_that_shouldnt_change
 end
 ```
+This method will be called before creating the token and in every request to compare if the returned values are the same. If values mismatch, the token won't be valid anymore. If values are the same, expiration validations will be checked.
 > If it is desired to update this value when renewing the token, override: `entity_custom_validation_renew_value`.
 
 #### Invalidating all tokens for a user? Override `entity_custom_validation_invalidate_all_value` as the following:
