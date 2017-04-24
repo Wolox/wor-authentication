@@ -9,9 +9,6 @@ install:
   - bundle install --retry=3
 
 script:
-  - bundle exec rspec
   - bundle exec rubocop -R --format simple
-
-addons:
-    code_climate:
-        repo_token: ENV['CODECLIMATE_TOKEN']
+  - bundle exec rspec
+  - bundle exec codeclimate-test-reporter
