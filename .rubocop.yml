@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
-    - wor-requests.gemspec
+    - wor-authentication.gemspec
+    - spec/**/*
 
 Documentation:
   Enabled: false
