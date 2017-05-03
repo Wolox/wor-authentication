@@ -143,7 +143,7 @@ This project is maintained by [Alejandro Bezdjian](https://github.com/alebian) a
 
 **wor-authentication** is available under the MIT [license](https://raw.githubusercontent.com/Wolox/wor-authentication/master/LICENSE.md).
 
-    Copyright (c) 2017 Alejandro Bezdjian (aka alebian), Michel Agopian (aka mishuagopian)
+    Copyright (c) 2017
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
