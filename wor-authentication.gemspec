@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['alebian', 'mishuagopian']
   spec.email         = ['alejandro.bezdjian@wolox.com.ar', 'michel.agopian@wolox.com.ar']
 
-  spec.summary       = 'Gem to add authentication to your application.'
+  spec.summary       = 'Easily add authentication to your application!.'
   spec.description   = 'Gem to add authentication to your application using JWT, with expirable, renewable and customizable tokens.'
   spec.homepage      = 'https://github.com/Wolox/wor-authentication'
   spec.license       = 'MIT'
