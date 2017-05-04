@@ -53,7 +53,7 @@ describe Wor::Authentication do
       end
     end
 
-    context 'when setting valid data' do
+    context 'when setting invalid data' do
       it 'raises exception when setting an invalid expiration_days value' do
         expect {
           described_class.expiration_days = 'invalid-expiration_days-value'
