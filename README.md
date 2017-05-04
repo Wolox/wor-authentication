@@ -118,6 +118,8 @@ Wor::Authentication.configure do |config|
 end
 ```
 
+Or, even easier, run `rails generate wor:authentication:install` in your root folder.
+
 ## Contributing
 
 1. Fork it
