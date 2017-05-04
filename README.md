@@ -59,7 +59,7 @@ end
 #### Validations before giving out a token? Override `authenticate_entity`:
 
 ```ruby
-# authentication_controller.rb
+# application_controller.rb
 def authenticate_entity(params)
   user = User.find_by(email: params[:email])
   return user if user.present? && user.valid_password?(params[:password])
@@ -70,7 +70,7 @@ end
 #### Keeping track of users? Override: `entity_payload`:
 
 ```ruby
-# authentication_controller.rb
+# application_controller.rb
 ENTITY_KEY = :user_id
 
 def entity_payload(user)
@@ -85,7 +85,7 @@ end
 #### Validations in every request? Override `entity_custom_validation_value` to get it verified as the following:
 
 ```ruby
-# authentication_controller.rb
+# application_controller.rb
 def entity_custom_validation_value(user)
    user.some_value_that_shouldnt_change
 end
@@ -96,7 +96,7 @@ This method will be called before creating the token and in every request to com
 #### Invalidating all tokens for a user? Override `entity_custom_validation_invalidate_all_value` as the following:
 
 ```ruby
-# authentication_controller.rb
+# application_controller.rb
 def entity_custom_validation_invalidate_all_value(user)
    user.some_value_that_shouldnt_change = 'some-new-value'
    user.save
