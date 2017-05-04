@@ -7,7 +7,6 @@ require_relative 'authentication/version'
 
 module Wor
   module Authentication
-
     @config = {
       expiration_days: 2,
       maximum_useful_days: 30
