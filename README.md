@@ -62,7 +62,8 @@ end
 # application_controller.rb
 def authenticate_entity(params)
   entity = Entity.find_by(some_unique_id: params[:some_unique_id])
-  return entity if entity.present? && entity.valid_password?(params[:password])
+  return nil unless entity.present? && entity.valid_password?(params[:password])
+  entity
 end
 ```
 > Returning no value or false won't create the authentication token.
