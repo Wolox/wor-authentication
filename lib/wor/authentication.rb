@@ -17,11 +17,17 @@ module Wor
     end
 
     def self.expiration_days=(expiration_days)
-      @config[:expiration_days] = expiration_days if expiration_days.is_a? Integer
+      unless expiration_days.is_a? Integer
+        raise Wor::Authentication::Exceptions::InvalidExpirationDaysError
+      end
+      @config[:expiration_days] = expiration_days
     end
 
     def self.maximum_useful_days=(maximum_useful_days)
-      @config[:maximum_useful_days] = maximum_useful_days if maximum_useful_days.is_a? Integer
+      unless maximum_useful_days.is_a? Integer
+        raise Wor::Authentication::Exceptions::InvalidMaximumUsefulDaysError
+      end
+      @config[:maximum_useful_days] = maximum_useful_days
     end
 
     def self.config
