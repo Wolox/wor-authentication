@@ -54,31 +54,31 @@ end
 ```
 > Note that our controller extends from ApplicationController.
 
-### <a name='custom-validations'> User tracking and custom validations
+### <a name='custom-validations'> Entity tracking and custom validations
 
 #### Validations before giving out a token? Override `authenticate_entity`:
 
 ```ruby
 # application_controller.rb
 def authenticate_entity(params)
-  user = User.find_by(email: params[:email])
-  return user if user.present? && user.valid_password?(params[:password])
+  entity = Entity.find_by(some_unique_id: params[:some_unique_id])
+  return entity if entity.present? && entity.valid_password?(params[:password])
 end
 ```
 > Returning no value or false won't create the authentication token.
 
-#### Keeping track of users? Override: `entity_payload`:
+#### Keeping track of entities? Override: `entity_payload`:
 
 ```ruby
 # application_controller.rb
-ENTITY_KEY = :user_id
+ENTITY_KEY = :entity_id
 
-def entity_payload(user)
-  { ENTITY_KEY => user.id }
+def entity_payload(entity)
+  { ENTITY_KEY => entity.id }
 end
 
 def find_authenticable_entity(entity_payload_returned_object)
-  User.find_by(id: entity_payload_returned_object.fetch(ENTITY_KEY))
+  Entity.find_by(id: entity_payload_returned_object.fetch(ENTITY_KEY))
 end
 ```
 
@@ -86,23 +86,23 @@ end
 
 ```ruby
 # application_controller.rb
-def entity_custom_validation_value(user)
-   user.some_value_that_shouldnt_change
+def entity_custom_validation_value(entity)
+   entity.some_value_that_shouldnt_change
 end
 ```
 This method will be called before creating the token and in every request to compare if the returned values are the same. If values mismatch, the token won't be valid anymore. If values are the same, expiration validations will be checked.
 > If it is desired to update this value when renewing the token, override: `entity_custom_validation_renew_value`.
 
-#### Invalidating all tokens for a user? Override `entity_custom_validation_invalidate_all_value` as the following:
+#### Invalidating all tokens for an entity? Override `entity_custom_validation_invalidate_all_value` as the following:
 
 ```ruby
 # application_controller.rb
-def entity_custom_validation_invalidate_all_value(user)
-   user.some_value_that_shouldnt_change = 'some-new-value'
-   user.save
+def entity_custom_validation_invalidate_all_value(entity)
+   entity.some_value_that_shouldnt_change = 'some-new-value'
+   entity.save
 end
 ```
-This method is the one executed when we want to invalidate sessions for the authenticated user. An option to achieve that can be to override the value that will be then compared in every request with `entity_custom_validation_value` method, so that initial stored value mismatch with the new different value.
+This method is the one executed when we want to invalidate sessions for the authenticated entity. An option to achieve that can be to override the value that will be then compared in every request with `entity_custom_validation_value` method, so that initial stored value mismatch with the new different value.
 > This works only if `entity_custom_validation_value` has been overridden.
 
 
