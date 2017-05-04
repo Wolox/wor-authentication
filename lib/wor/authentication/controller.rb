@@ -14,20 +14,22 @@ module Wor
         ).decode(authentication_token)
       end
 
+      def new_token_expiration_date
+        expiration_days = Wor::Authentication.expiration_days
+        (Time.zone.now + expiration_days.days).to_i
+      end
+
+      def token_maximum_useful_date
+        maximum_useful_days = Wor::Authentication.maximum_useful_days
+        (Time.zone.now + maximum_useful_days.days).to_i
+      end
+
       ##
       # Helpers which may be overrided
       ##
 
       def token_renew_id
         Devise.friendly_token(32)
-      end
-
-      def new_token_expiration_date
-        (Time.zone.now + 2.days).to_i
-      end
-
-      def token_maximum_useful_date
-        (Time.zone.now + 30.days).to_i
       end
 
       def authentication_token
@@ -46,7 +48,6 @@ module Wor
         nil
       end
 
-      # Explain in README
       def token_key
         raise Wor::Authentication::Exceptions::SubclassMustImplementError unless defined?(Rails)
         if Rails.application.secrets.secret_key_base.blank?
