@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'spy'
 
-describe OverridedExpirationDatesAuthenticationController, type: :controller do
+describe AuthenticationController, type: :controller do
 
   describe 'POST #renew' do
     let!(:default_expiration_days) { Wor::Authentication.expiration_days }
@@ -22,7 +22,7 @@ describe OverridedExpirationDatesAuthenticationController, type: :controller do
     end
 
     context 'when the session was created' do
-      include_context 'With overrided expiration dates session' do
+      include_context 'With session' do
         let(:renew_params) { { renew_id: renew_id } }
       end
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'spy'
 
-describe DefaultExpirationDatesAuthenticationController, type: :controller do
+describe AuthenticationController, type: :controller do
 
   describe 'POST #create' do
     let!(:session_params) { { session_param_1: 'some value' } }
@@ -46,7 +46,7 @@ describe DefaultExpirationDatesAuthenticationController, type: :controller do
 
   describe 'POST #renew' do
     context 'when the session was created' do
-      include_context 'With default expiration dates session' do
+      include_context 'With session' do
         let(:renew_params) { { renew_id: renew_id } }
       end
 
@@ -166,7 +166,7 @@ describe DefaultExpirationDatesAuthenticationController, type: :controller do
   end
 
   describe 'POST #invalidate_all' do
-    include_context 'With default expiration dates session' do
+    include_context 'With session' do
       let(:renew_params) { { renew_id: renew_id } }
     end
 
