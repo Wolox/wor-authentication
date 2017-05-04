@@ -111,7 +111,7 @@ This method is the one executed when we want to invalidate sessions for the auth
 #### Want to modify tokens TTL or maximum useful days? Set an initializer:
 
 ```ruby
-# config/initializers/wor-authentication.rb
+# config/initializers/wor_authentication.rb
 Wor::Authentication.configure do |config|
   config.expiration_days = 5
   config.maximum_useful_days = 20
