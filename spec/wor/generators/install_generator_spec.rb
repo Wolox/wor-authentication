@@ -1,5 +1,5 @@
 require 'generator_spec'
-require_relative '../../../lib/wor/generators/wor/authentication/install_generator'
+require_relative '../../../lib/generators/wor/authentication/install_generator'
 
 describe Wor::Authentication::Generators::InstallGenerator, type: :generator do
   context 'generating the initializer ' do
