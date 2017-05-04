@@ -13,12 +13,4 @@ class OverridedExpirationDatesApplicationController < ActionController::Base
   def find_authenticable_entity(decoded_token) {} end
 
   def entity_payload(entity) {} end
-
-  def new_token_expiration_date
-    (Time.zone.now + 5.days).to_i
-  end
-
-  def token_maximum_useful_date
-    (Time.zone.now + 20.days).to_i
-  end
 end
