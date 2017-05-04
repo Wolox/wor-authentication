@@ -61,8 +61,8 @@ end
 ```ruby
 # authentication_controller.rb
 def authenticate_entity(params)
-  user ||= User.find_by(email: params[:email])
-  return nil unless user.present? && user.valid_password?(params[:password])
+  user = User.find_by(email: params[:email])
+  return user if user.present? && user.valid_password?(params[:password])
 end
 ```
 > Returning no value or false won't create the authentication token.
