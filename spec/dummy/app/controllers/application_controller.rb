@@ -1,4 +1,4 @@
-class DefaultExpirationDatesApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base
   include Wor::Authentication::Controller
   before_action :authenticate_request
 

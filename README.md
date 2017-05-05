@@ -109,21 +109,17 @@ This method is the one executed when we want to invalidate sessions for the auth
 
 ### Some other useful configurations
 
-#### Want to modify tokens ttl? Override `new_token_expiration_date` as the following:
+#### Want to modify tokens TTL or maximum useful days? Set an initializer:
 
 ```ruby
-def new_token_expiration_date
-  (Time.zone.now + 2.days).to_i
+# config/initializers/wor_authentication.rb
+Wor::Authentication.configure do |config|
+  config.expiration_days = 5
+  config.maximum_useful_days = 20
 end
 ```
 
-#### Want to modify tokens maximum useful day? Override `token_maximum_useful_date` as the following:
-
-```ruby
-def token_maximum_useful_date
-  (Time.zone.now + 30.days).to_i
-end
-```
+Or, even easier, run `rails generate wor:authentication:install` in your root folder.
 
 ## Contributing
 

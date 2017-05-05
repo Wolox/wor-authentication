@@ -1,11 +1,28 @@
 require 'spec_helper'
 require 'spy'
 
-describe OverridedExpirationDatesAuthenticationController, type: :controller do
+describe AuthenticationController, type: :controller do
 
   describe 'POST #renew' do
+    let!(:default_expiration_days) { Wor::Authentication.expiration_days }
+    let!(:default_maximum_useful_days) { Wor::Authentication.maximum_useful_days }
+
+    before do
+      Wor::Authentication.configure do |config|
+        config.expiration_days = 5
+        config.maximum_useful_days = 20
+      end
+    end
+
+    after do
+      Wor::Authentication.configure do |config|
+        config.expiration_days = default_expiration_days
+        config.maximum_useful_days = default_maximum_useful_days
+      end
+    end
+
     context 'when the session was created' do
-      include_context 'With overrided expiration dates session' do
+      include_context 'With session' do
         let(:renew_params) { { renew_id: renew_id } }
       end
 
