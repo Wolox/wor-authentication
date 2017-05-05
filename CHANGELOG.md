@@ -12,6 +12,10 @@
 
 - Instead of overriding methods, it is now possible to configure `expiration_days` and `maximum_useful_days` with the initializer.
 
+#### Removed
+
+- Removed restriction for authentication parameters.
+
 ### [0.1.0]
 
 #### Added
