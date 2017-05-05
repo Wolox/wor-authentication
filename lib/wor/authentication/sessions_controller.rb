@@ -63,12 +63,10 @@ module Wor
         render json: { error: error_message }, status: status
       end
 
-      # I'm pretty sure this should be set by gems users and not us
       def authenticate_params
-        params.require(:session).permit(:email, :password)
+        params.require(:session)
       end
 
-      # I'm pretty sure this should be set by gems users and not us
       def renew_token_params
         params.require(:session).permit(:renew_id)
       end
