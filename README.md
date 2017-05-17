@@ -34,7 +34,15 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_request
 end
 ```
-> To know which exceptions can be thrown by the gem, please check the [exceptions file](./lib/wor/authentication/exceptions.rb).
+
+Moreover, you can add this to your `ApplicationController` to use the gem helpers for handling exceptions
+
+```ruby
+rescue_from Wor::Authentication::Exceptions::NotRenewableTokenError, with: :render_not_renewable_token
+rescue_from Wor::Authentication::Exceptions::ExpiredTokenError, with: :render_expired_token
+rescue_from Wor::Authentication::Exceptions::EntityCustomValidationError, with: :render_entity_invalid_custom_validation
+```
+> To know all the exceptions that can be thrown by the gem, please check the [exceptions file](./lib/wor/authentication/exceptions.rb).
 
 Second and last step, we have to define the routes to achieve authentication and a controller to handle them.
 ```ruby
