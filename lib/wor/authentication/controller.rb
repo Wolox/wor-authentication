@@ -15,13 +15,11 @@ module Wor
       end
 
       def new_token_expiration_date
-        expiration_days = Wor::Authentication.expiration_days
-        (Time.zone.now + expiration_days.days).to_i
+        Wor::Authentication.expiration_days.days.from_now.to_i
       end
 
       def token_maximum_useful_date
-        maximum_useful_days = Wor::Authentication.maximum_useful_days
-        (Time.zone.now + maximum_useful_days.days).to_i
+        Wor::Authentication.maximum_useful_days.days.from_now.to_i
       end
 
       ##
