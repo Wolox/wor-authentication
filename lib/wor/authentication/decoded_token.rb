@@ -16,9 +16,7 @@ module Wor
       end
 
       def fetch(key)
-        return payload[key.to_sym] if payload[key.to_sym].present?
-        return payload[key.to_s] if payload[key.to_s].present?
-        nil
+        payload[key.to_sym] || payload[key.to_s]
       end
 
       def expired?
