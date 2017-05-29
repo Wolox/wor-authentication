@@ -39,7 +39,7 @@ module Wor
 
       def valid_entity_custom_validation?(entity_custom_validation)
         fetch(:entity_custom_validation).blank? ||
-        entity_custom_validation == fetch(:entity_custom_validation)
+          entity_custom_validation == fetch(:entity_custom_validation)
       end
     end
   end

@@ -11,7 +11,7 @@ describe Wor::Authentication::Generators::InstallGenerator, type: :generator do
     end
 
     it 'generates the correct structure for initializer' do
-      expect(destination_root).to have_structure do
+      expect(destination_root).to have_structure {
         no_file 'wor_authentication.rb'
         directory 'config' do
           no_file 'wor_authentication.rb'
@@ -21,7 +21,7 @@ describe Wor::Authentication::Generators::InstallGenerator, type: :generator do
             end
           end
         end
-      end
+      }
     end
   end
 end
