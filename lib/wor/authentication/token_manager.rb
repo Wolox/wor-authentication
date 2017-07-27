@@ -15,7 +15,7 @@ module Wor
         payload = JWT.decode(token, @key)[0]
         Wor::Authentication::DecodedToken.new(payload)
       rescue
-        nil
+        raise Wor::Authentication::Exceptions::InvalidAuthorizationToken
       end
     end
   end

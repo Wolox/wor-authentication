@@ -1,10 +1,7 @@
 require 'spec_helper'
-require 'spy'
 
 describe ApplicationController, type: :controller do
-
   describe '#authenticate_request' do
-
     subject { described_class.new }
 
     context 'without Authorization Header' do
