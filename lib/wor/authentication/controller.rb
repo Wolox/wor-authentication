@@ -12,6 +12,8 @@ module Wor
         @decoded_token ||= Wor::Authentication::TokenManager.new(
           token_key
         ).decode(authentication_token)
+        return @decoded_token if @decoded_token.present?
+        raise Wor::Authentication::Exceptions::InvalidAuthorizationToken
       end
 
       def new_token_expiration_date
@@ -31,6 +33,9 @@ module Wor
       end
 
       def authentication_token
+        if request.headers['Authorization'].blank?
+          raise Wor::Authentication::Exceptions::MissingAuthorizationHeader
+        end
         request.headers['Authorization'].split(' ').last
       end
 

@@ -71,6 +71,14 @@ module Wor
         params.require(:session).permit(:renew_id)
       end
 
+      def render_missing_authorization_token
+        render_error('You must pass an Authorization Header with the access token', :unauthorized)
+      end
+
+      def render_invalid_authorization_token
+        render_error('Invalid authorization token', :unauthorized)
+      end
+
       def render_not_renewable_token
         render_error('Access token is not valid anymore', :unauthorized)
       end

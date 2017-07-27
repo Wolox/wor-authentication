@@ -8,6 +8,8 @@ module Wor
       class ExpiredTokenError < StandardError; end
       class NotRenewableTokenError < StandardError; end
       class EntityCustomValidationError < StandardError; end
+      class MissingAuthorizationHeader < StandardError; end
+      class InvalidAuthorizationToken < StandardError; end
     end
   end
 end
