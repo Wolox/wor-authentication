@@ -40,6 +40,8 @@ When a validation fails, an exception will be raised. Feel free to use `Wor::Aut
 rescue_from Wor::Authentication::Exceptions::NotRenewableTokenError, with: :render_not_renewable_token
 rescue_from Wor::Authentication::Exceptions::ExpiredTokenError, with: :render_expired_token
 rescue_from Wor::Authentication::Exceptions::EntityCustomValidationError, with: :render_entity_invalid_custom_validation
+rescue_from Wor::Authentication::Exceptions::MissingAuthorizationHeader, with: :render_missing_authorization_token
+rescue_from Wor::Authentication::Exceptions::InvalidAuthorizationToken, with: :render_invalid_authorization_token
 ```
 
 > To know all the exceptions that can be thrown by the gem, please check the [exceptions file](./lib/wor/authentication/exceptions.rb).

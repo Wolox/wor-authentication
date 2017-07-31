@@ -31,6 +31,9 @@ module Wor
       end
 
       def authentication_token
+        if request.headers['Authorization'].blank?
+          raise Wor::Authentication::Exceptions::MissingAuthorizationHeader
+        end
         request.headers['Authorization'].split(' ').last
       end
 

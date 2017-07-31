@@ -1,6 +1,11 @@
 
 ## Change log
 
+### [0.2.1] - 2017-07-27
+
+- Throws Wor::Authentication::MissingAuthorizationHeader when no Authorization header is sent
+- Throws Wor::Authentication::InvalidAuthorizationToken when the Authorization token is invalid
+
 ### [0.2.0]
 
 #### Added
