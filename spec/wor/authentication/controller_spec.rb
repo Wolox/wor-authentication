@@ -34,8 +34,12 @@ describe ApplicationController, type: :controller do
         subject.request = request
       end
 
-      it 'raises InvalidAuthorizationToken' do
+      it 'does not raise an error' do
         expect { subject.authenticate_request }.not_to raise_error
+      end
+
+      it 'has access to the current entity method' do
+        expect(subject.current_entity).to be {}
       end
     end
   end
