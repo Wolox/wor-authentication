@@ -1,0 +1,21 @@
+# Missing in README
+
+- What does sign in require
+
+# Mejoras
+
+- Mensajes de las excepciones FALTAN COMPLETAR LOS STRINGS DONE
+- Default rescues DONE
+- Agregar los campos de JWT issuer, etc
+- Devolver expires in al crear la sesion DONE
+- Agregar header content type para poner bearer?
+- Poder agarrar un token sin un controller
+
+# Defaults
+
+User: {
+  email,
+  password,
+  entity_custom_validation
+  renew_id
+}

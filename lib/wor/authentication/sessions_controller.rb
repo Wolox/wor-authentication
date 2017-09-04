@@ -2,58 +2,77 @@ module Wor
   module Authentication
     module SessionsController
       def create
-        entity = authenticate_entity(authenticate_params)
-        if entity
-          token_data = generate_access_token(entity)
-          render json: {
-            access_token: token_data[:token], renew_id: token_data[:renew_id]
-          }, status: :ok
-        else
-          render_error('Invalid authentication credentials', :unauthorized)
-        end
+        entity = authenticate_entity(authentication_params)
+        return render_error('Invalid authentication credentials', :unauthorized) unless entity
+        render json: token_creation_response(entity), status: :created
+      rescue ActionController::ParameterMissing
+        render_error("Parameter 'session' missing.", :bad_request)
       end
 
       def renew
-        if !decoded_token.valid_renew_id?(renew_token_params[:renew_id])
-          render_error('Invalid renew_id', :unauthorized)
+        if decoded_token.able_to_renew?(current_entity.try(:renew_id))
+          render json: token_creation_response(current_entity), status: :created
         else
-          render json: { access_token: renew_access_token(current_entity) }, status: :ok
+          render_error('Invalid renew_id', :unauthorized)
         end
       end
 
       def invalidate_all
-        # should we rescue anything here ?
-        # if invalidating uses db and fails, or something like that
-        entity_custom_validation_invalidate_all_value(current_entity)
+        update_custom_validation_value(current_entity)
+        update_renew_id(current_entity)
         head :ok
       end
 
-      def generate_access_token(entity)
-        renew_id = token_renew_id
-        payload = entity_payload(entity).merge(
-          entity_custom_validation: entity_custom_validation_value(entity),
-          expiration_date: new_token_expiration_date,
-          maximum_useful_date: token_maximum_useful_date,
-          renew_id: renew_id
-        )
-        access_token_object(token_key, payload, renew_id)
+      ##########################################################################################
+      #                   DEFAULT METHOD IMPLEMENTATIONS, USER SHOULD CHANGE                   #
+      ##########################################################################################
+      def authenticate_entity(params)
+        entity = User.find_by(email: authentication_params[:email])
+        return nil unless entity.present? && entity.valid_password?(authentication_params[:password])
+        entity
       end
 
-      def renew_access_token(entity)
-        payload = decoded_token.payload
-        payload[:expiration_date] = new_token_expiration_date
-        payload[:entity_custom_validation] = entity_custom_validation_renew_value(entity)
-        Wor::Authentication::TokenManager.new(token_key).encode(payload)
+      def entity_payload(entity)
+        { id: entity.id }
+      end
+
+      def new_token_expiration_date
+        Wor::Authentication.expiration_minutes.minutes.from_now.to_i
+      end
+
+      def new_token_renew_date
+        Wor::Authentication.renew_minutes.minutes.from_now.to_i
+      end
+
+      def token_renew_id(entity)
+        if entity.respond_to?(:renew_id)
+          current_key = entity.renew_id
+          return current_key if current_key
+          update_renew_id(entity)
+        end
+      end
+
+      def update_custom_validation_value(entity)
+        SecureRandom.hex(32).tap do |random_value|
+          begin
+            entity.update!(entity_custom_validation: random_value)
+          rescue
+            Rails.logger.info('User does not have a entity_custom_validation attribute')
+          end
+        end
+      end
+
+      def update_renew_id(entity)
+        SecureRandom.hex(32).tap do |random_value|
+          begin
+            entity.update!(renew_id: random_value)
+          rescue
+            Rails.logger.info('User does not have a renew_id attribute')
+          end
+        end
       end
 
       private
-
-      def access_token_object(token_key, payload, renew_id)
-        {
-          token: Wor::Authentication::TokenManager.new(token_key).encode(payload),
-          renew_id: renew_id
-        }
-      end
 
       def current_entity
         @current_entity ||= find_authenticable_entity(decoded_token)
@@ -63,7 +82,7 @@ module Wor
         render json: { error: error_message }, status: status
       end
 
-      def authenticate_params
+      def authentication_params
         params.require(:session)
       end
 
@@ -71,24 +90,26 @@ module Wor
         params.require(:session).permit(:renew_id)
       end
 
-      def render_missing_authorization_token
-        render_error('You must pass an Authorization Header with the access token', :unauthorized)
+      def token_creation_response(entity)
+        payload = entity_payload(entity).merge!(
+          entity_custom_validation: entity_custom_validation_value(entity),
+          expiration_date: new_token_expiration_date,
+          renew_date: new_token_renew_date,
+          renew_id: token_renew_id(entity)
+        )
+        new_token_response(
+          Wor::Authentication::TokenManager.new(token_key).encode(payload),
+          new_token_expiration_date,
+          payload[:renew_date]
+        )
       end
 
-      def render_invalid_authorization_token
-        render_error('Invalid authorization token', :unauthorized)
-      end
-
-      def render_not_renewable_token
-        render_error('Access token is not valid anymore', :unauthorized)
-      end
-
-      def render_expired_token
-        render_error('Expired token', :unauthorized)
-      end
-
-      def render_entity_invalid_custom_validation
-        render_error('Entity invalid custom validation', :unauthorized)
+      def new_token_response(token, expiration_date, renew_date)
+        {
+          access_token: token,
+          expiration_date: expiration_date,
+          renew_date: renew_date
+        }
       end
     end
   end

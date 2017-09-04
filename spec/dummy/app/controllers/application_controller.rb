@@ -4,13 +4,9 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  rescue_from Wor::Authentication::Exceptions::NotRenewableTokenError, with: :render_not_renewable_token
-  rescue_from Wor::Authentication::Exceptions::ExpiredTokenError, with: :render_expired_token
-  rescue_from Wor::Authentication::Exceptions::EntityCustomValidationError, with: :render_entity_invalid_custom_validation
+  rescue_from Wor::Authentication::Exceptions::NotRenewableToken, with: :render_not_renewable_token
+  rescue_from Wor::Authentication::Exceptions::ExpiredToken, with: :render_expired_token
 
-  def authenticate_entity(params) {} end
-
+  # Since we don't have a User model
   def find_authenticable_entity(decoded_token) {} end
-
-  def entity_payload(entity) {} end
 end

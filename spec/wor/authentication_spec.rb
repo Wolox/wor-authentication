@@ -57,13 +57,13 @@ describe Wor::Authentication do
       it 'raises exception when setting an invalid expiration_days value' do
         expect {
           described_class.expiration_days = 'invalid-expiration_days-value'
-        }.to raise_error(Wor::Authentication::Exceptions::InvalidExpirationDaysError)
+        }.to raise_error(Wor::Authentication::Exceptions::InvalidExpirationDays)
       end
 
       it 'raises exception when setting an invalid maximum_useful_days value' do
         expect {
           described_class.maximum_useful_days = 'invalid-maximum_useful_days-value'
-        }.to raise_error(Wor::Authentication::Exceptions::InvalidMaximumUsefulDaysError)
+        }.to raise_error(Wor::Authentication::Exceptions::InvalidMaximumUsefulDays)
       end
     end
   end

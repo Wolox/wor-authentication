@@ -4,8 +4,9 @@ require 'spy'
 describe AuthenticationController, type: :controller do
 
   describe 'POST #create' do
-    let!(:session_params) { { session_param_1: 'some value' } }
     subject { post :create, params: { session: session_params } }
+
+    let!(:session_params) { { session_param_1: 'some value' } }
 
     context 'when requesting with valid data (always)' do
       before do

@@ -37,8 +37,8 @@ end
 
 When a validation fails, an exception will be raised. Feel free to use `Wor::Authentication` helpers to render those errors like the following:
 ```ruby
-rescue_from Wor::Authentication::Exceptions::NotRenewableTokenError, with: :render_not_renewable_token
-rescue_from Wor::Authentication::Exceptions::ExpiredTokenError, with: :render_expired_token
+rescue_from Wor::Authentication::Exceptions::NotRenewableToken, with: :render_not_renewable_token
+rescue_from Wor::Authentication::Exceptions::ExpiredToken, with: :render_expired_token
 rescue_from Wor::Authentication::Exceptions::EntityCustomValidationError, with: :render_entity_invalid_custom_validation
 rescue_from Wor::Authentication::Exceptions::MissingAuthorizationHeader, with: :render_missing_authorization_token
 rescue_from Wor::Authentication::Exceptions::InvalidAuthorizationToken, with: :render_invalid_authorization_token

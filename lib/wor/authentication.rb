@@ -1,6 +1,6 @@
+require_relative 'authentication/exceptions'
 require_relative 'authentication/controller'
 require_relative 'authentication/decoded_token'
-require_relative 'authentication/exceptions'
 require_relative 'authentication/sessions_controller'
 require_relative 'authentication/token_manager'
 require_relative 'authentication/version'
@@ -8,38 +8,50 @@ require_relative 'authentication/version'
 module Wor
   module Authentication
     @config = {
-      expiration_days: 2,
-      maximum_useful_days: 30
+      token_key: nil,
+      expiration_minutes: 43200,
+      renew_minutes: 43185
     }
 
     def self.configure
       yield self
+      if renew_minutes >= expiration_minutes
+        raise Wor::Authentication::Exceptions::InvalidMaximumUsefulDays
+      end
     end
 
-    def self.expiration_days=(expiration_days)
-      unless expiration_days.is_a? Integer
-        raise Wor::Authentication::Exceptions::InvalidExpirationDaysError
+    def self.expiration_minutes=(expiration_minutes)
+      unless expiration_minutes.is_a? Integer
+        raise Wor::Authentication::Exceptions::InvalidDateType
       end
-      @config[:expiration_days] = expiration_days
+      @config[:expiration_minutes] = expiration_minutes
     end
 
-    def self.maximum_useful_days=(maximum_useful_days)
-      unless maximum_useful_days.is_a? Integer
-        raise Wor::Authentication::Exceptions::InvalidMaximumUsefulDaysError
+    def self.renew_minutes=(renew_minutes)
+      unless renew_minutes.is_a? Integer
+        raise Wor::Authentication::Exceptions::InvalidDateType
       end
-      @config[:maximum_useful_days] = maximum_useful_days
+      @config[:renew_minutes] = renew_minutes
+    end
+
+    def self.token_key=(token_key)
+      @config[:token_key] = token_key
     end
 
     def self.config
       @config
     end
 
-    def self.expiration_days
-      @config[:expiration_days]
+    def self.expiration_minutes
+      @config[:expiration_minutes]
     end
 
-    def self.maximum_useful_days
-      @config[:maximum_useful_days]
+    def self.renew_minutes
+      @config[:renew_minutes]
+    end
+
+    def self.token_key
+      @config[:token_key]
     end
   end
 end
