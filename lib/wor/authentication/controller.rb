@@ -23,7 +23,7 @@ module Wor
       end
 
       def current_entity
-        find_authenticable_entity(decoded_token)
+        @current_entity ||= find_authenticable_entity(decoded_token)
       end
 
       ##
