@@ -22,8 +22,12 @@ module Wor
         Wor::Authentication.maximum_useful_days.days.from_now.to_i
       end
 
+      def current_entity
+        @current_entity ||= find_authenticable_entity(decoded_token)
+      end
+
       ##
-      # Helpers which may be overrided
+      # Helpers which may be overridden
       ##
 
       def token_renew_id

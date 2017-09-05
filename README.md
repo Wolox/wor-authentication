@@ -63,13 +63,14 @@ class AuthenticationController < ApplicationController
 end
 ```
 > Note that our controller extends from ApplicationController.
+> It could also extend from your custom ApiController, for example.
 
-### <a name='custom-validations'> Entity tracking and custom validations
+### Entity tracking
 
-#### Validations before giving out a token? Override `authenticate_entity`:
+#### Override `authenticate_entity`. Add validations for your entity:
 
 ```ruby
-# application_controller.rb
+# authentication_controller.rb
 def authenticate_entity(params)
   entity = Entity.find_by(some_unique_id: params[:some_unique_id])
   return nil unless entity.present? && entity.valid_password?(params[:password])
@@ -78,7 +79,7 @@ end
 ```
 > Returning no value or false won't create the authentication token.
 
-#### Keeping track of entities? Override: `entity_payload`:
+#### Override `entity_payload`, `find_authenticable_entity` to have access to `current_entity`:
 
 ```ruby
 # application_controller.rb
@@ -92,6 +93,11 @@ def find_authenticable_entity(entity_payload_returned_object)
   Entity.find_by(id: entity_payload_returned_object.fetch(ENTITY_KEY))
 end
 ```
+
+Overriding these methods will give you access to `current_entity` from any controller that extends `application_controller`.
+It will return the entity you used to authenticate.
+
+### Custom Validations
 
 #### Validations in every request? Override `entity_custom_validation_value` to get it verified as the following:
 
