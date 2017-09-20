@@ -8,6 +8,6 @@ describe Wor::Authentication::VERSION do
   end
 
   it 'has the correct version number' do
-    expect(version).to eq('0.2.1')
+    expect(version).to eq('0.2.2')
   end
 end

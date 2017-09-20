@@ -16,7 +16,7 @@ module Wor
       def decode(token)
         payload = JWT.decode(token, @key, true, algorithm: ENCODING_ALGORITHM)[0]
         Wor::Authentication::DecodedToken.new(payload)
-      rescue
+      rescue StandardError
         raise Wor::Authentication::Exceptions::InvalidAuthorizationToken
       end
     end
