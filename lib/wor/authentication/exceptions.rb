@@ -78,6 +78,12 @@ module Wor
           "Token not found in 'Authorization' header."
         end
       end
+
+      class CantUseBefore < BaseError
+        def message
+          "Token can't be used yet, check 'nbf' claim."
+        end
+      end
     end
   end
 end

@@ -10,6 +10,8 @@
 - Devolver expires in al crear la sesion DONE
 - Agregar header content type para poner bearer?
 - Poder agarrar un token sin un controller
+- Engine
+- Subject validation when decoding
 
 # Defaults
 

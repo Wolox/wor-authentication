@@ -1,8 +1,9 @@
 require_relative 'authentication/exceptions'
-require_relative 'authentication/controller'
-require_relative 'authentication/decoded_token'
-require_relative 'authentication/sessions_controller'
-require_relative 'authentication/token_manager'
+require_relative 'authentication/token/constants'
+require_relative 'authentication/token/builder'
+require_relative 'authentication/token/decoded'
+require_relative 'authentication/controllers/sessions'
+require_relative 'authentication/controllers/base'
 require_relative 'authentication/version'
 
 module Wor
