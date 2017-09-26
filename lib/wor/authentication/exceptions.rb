@@ -9,7 +9,7 @@ module Wor
         end
 
         def status_code
-          401
+          :unauthorized
         end
       end
 
@@ -19,7 +19,7 @@ module Wor
         end
 
         def status_code
-          400
+          :bad_request
         end
       end
 
@@ -29,7 +29,7 @@ module Wor
         end
 
         def status_code
-          400
+          :bad_request
         end
       end
 
@@ -45,17 +45,13 @@ module Wor
         end
 
         def status_code
-          400
+          :bad_request
         end
       end
 
       class InvalidAuthorizationToken < BaseError
         def message
           'Provided token has an invalid signature.'
-        end
-
-        def status_code
-          401
         end
       end
 
