@@ -2,7 +2,10 @@ module Wor
   module Authentication
     module Exceptions
       class BaseError < StandardError
+        MSG = nil
+
         def message
+          return MSG unless MSG.nil?
           exception_name = self.class.to_s.split('::').last
           camel_case_splitted = exception_name.split(/(?=[A-Z])/)
           camel_case_splitted.join(' ')
@@ -14,9 +17,7 @@ module Wor
       end
 
       class InvalidMaximumUsefulDays < BaseError
-        def message
-          'maximum_useful_days should be less than expiration_days.'
-        end
+        MSG = 'maximum_useful_days should be less than expiration_days.'.freeze
 
         def status_code
           :bad_request
@@ -24,9 +25,7 @@ module Wor
       end
 
       class InvalidDateType < BaseError
-        def message
-          'Date type must be an Integer value.'
-        end
+        MSG = 'Date type must be an Integer value.'.freeze
 
         def status_code
           :bad_request
@@ -34,15 +33,11 @@ module Wor
       end
 
       class EntityCustomValidationError < BaseError
-        def message
-          'Custom validation keys do not match.'
-        end
+        MSG = 'Custom validation keys do not match.'.freeze
       end
 
       class NoKeyProvided < BaseError
-        def message
-          'No key provided to sign tokens. Check configuration options.'
-        end
+        MSG = 'No key provided to sign tokens. Check configuration options.'.freeze
 
         def status_code
           :bad_request
@@ -50,39 +45,27 @@ module Wor
       end
 
       class InvalidAuthorizationToken < BaseError
-        def message
-          'Provided token has an invalid signature.'
-        end
+        MSG = 'Provided token has an invalid signature.'.freeze
       end
 
       class ExpiredToken < BaseError
-        def message
-          "Token's maximum_useful_date reached."
-        end
+        MSG = "Token's maximum_useful_date reached.".freeze
       end
 
       class NotRenewableToken < BaseError
-        def message
-          "Token's expiration_date reached."
-        end
+        MSG = "Token's expiration_date reached.".freeze
       end
 
       class NoEntityPresent < BaseError
-        def message
-          "Token's owner not found."
-        end
+        MSG = "Token's owner not found.".freeze
       end
 
       class MissingAuthorizationHeader < BaseError
-        def message
-          "Token not found in 'Authorization' header."
-        end
+        MSG = "Token not found in 'Authorization' header.".freeze
       end
 
       class CantUseBefore < BaseError
-        def message
-          "Token can't be used yet, check 'nbf' claim."
-        end
+        MSG = "Token can't be used yet, check 'nbf' claim.".freeze
       end
     end
   end
