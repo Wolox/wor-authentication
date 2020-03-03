@@ -1,14 +1,4 @@
 language: ruby
-rvm:
-  - 2.2.2
-  - 2.3.3
-  - 2.4.0
-
-install:
-  - gem install bundler
-  - bundle install --retry=3
 
 script:
-  - bundle exec rubocop -R --format simple
-  - bundle exec rspec
-  - bundle exec codeclimate-test-reporter
+  - true
